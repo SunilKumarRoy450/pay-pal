@@ -21,7 +21,7 @@ const initialFormValue = {
   assigne: "",
   taskDescription: "",
 };
-const Form = ({ tasks }) => {
+const Form = ({ tasks,getData }) => {
   const [formValue, setFormValue] = useState(initialFormValue);
   const [users, setUsers] = useState([]);
 
@@ -53,6 +53,7 @@ const Form = ({ tasks }) => {
     };
     await axios.post("https://muddy-cyan-sneakers.cyclic.app/tasks/create", payload);
     onClose();
+    getData()
   };
 
   return (

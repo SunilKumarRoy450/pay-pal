@@ -34,8 +34,8 @@ const Home = () => {
   return (
     <Box className="container">
       <Box className="container-nav">
-        <Form tasks={tasks} />
-      </Box>
+        <Form getData={getData}  tasks={tasks} />
+      </Box> 
       <Box className="container-main">
         <Box className="container-left">
           <Box className="card-box">
