@@ -17,6 +17,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const LoginForm = () => {
   const [signupFormValue, setSignupFormValue] = useState({
     username: "",
@@ -28,7 +29,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-
+const navigate=useNavigate()
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Signup/Register
@@ -45,8 +46,9 @@ const LoginForm = () => {
       password: signupFormValue.password,
       image: signupFormValue.image,
     };
-    await axios.post("http://localhost:8080/users/register", payload);
+    await axios.post("https://muddy-cyan-sneakers.cyclic.app/users/register", payload);
     setSignupFormValue({ username: "", email: "", password: "", image: "" });
+
   };
 
   //Login
@@ -61,7 +63,7 @@ const LoginForm = () => {
       email: loginFormValue.email,
       password: loginFormValue.password,
     };
-    await axios.post("http://localhost:8080/users/login", payload);
+    await axios.post("https://muddy-cyan-sneakers.cyclic.app/users/login", payload);
     setLoginFormValue({
       email: "",
       password: "",

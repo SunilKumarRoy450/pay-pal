@@ -32,7 +32,7 @@ const Form = ({ tasks }) => {
   }, []);
 
   const getUsersData = async () => {
-    const res = await axios.get(`http://localhost:8080/users`);
+    const res = await axios.get(`https://muddy-cyan-sneakers.cyclic.app/users`);
     const data = await res.data;
     setUsers(data);
   };
@@ -51,7 +51,7 @@ const Form = ({ tasks }) => {
       assigne: formValue.assigne,
       taskDescription: formValue.taskDescription,
     };
-    await axios.post("http://localhost:8080/tasks/create", payload);
+    await axios.post("https://muddy-cyan-sneakers.cyclic.app/tasks/create", payload);
     onClose();
   };
 

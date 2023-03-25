@@ -18,11 +18,13 @@ import {
 } from "@chakra-ui/react";
 import "./style.css";
 import Form from "./Form";
+
+// Basic api routes:-https://muddy-cyan-sneakers.cyclic.app
 const Home = () => {
   const [tasks, setTasks] = useState([]);
 
   const getData = async () => {
-    const res = await axios.get(`http://localhost:8080/tasks`);
+    const res = await axios.get(`https://muddy-cyan-sneakers.cyclic.app/tasks`);
     const data = await res.data;
     setTasks(data);
   };
