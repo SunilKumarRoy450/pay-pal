@@ -29,7 +29,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-const navigate=useNavigate()
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // Signup/Register
@@ -46,9 +46,12 @@ const navigate=useNavigate()
       password: signupFormValue.password,
       image: signupFormValue.image,
     };
-    await axios.post("https://muddy-cyan-sneakers.cyclic.app/users/register", payload);
+    await axios.post(
+      "https://muddy-cyan-sneakers.cyclic.app/users/register",
+      payload
+    );
     setSignupFormValue({ username: "", email: "", password: "", image: "" });
-
+    navigate("/home");
   };
 
   //Login
@@ -63,12 +66,16 @@ const navigate=useNavigate()
       email: loginFormValue.email,
       password: loginFormValue.password,
     };
-    await axios.post("https://muddy-cyan-sneakers.cyclic.app/users/login", payload);
+    await axios.post(
+      "https://muddy-cyan-sneakers.cyclic.app/users/login",
+      payload
+    );
     setLoginFormValue({
       email: "",
       password: "",
     });
     onClose();
+    navigate("/home");
   };
 
   return (
