@@ -34,7 +34,6 @@ router.post("/create", async (req, res) => {
       taskDescription,
       createdAt,
     });
-    console.log(tasks, "tasks");
     await tasks.save();
     return res.status(201).send(tasks);
   } catch (error) {
