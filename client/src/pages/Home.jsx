@@ -9,8 +9,6 @@ import {
   TagLabel,
   Heading,
   Badge,
-  Stack,
-  StackDivider,
   SimpleGrid,
   CardHeader,
   CardFooter,
@@ -20,22 +18,26 @@ import "./style.css";
 import Form from "./Form";
 
 // Basic api routes:-https://muddy-cyan-sneakers.cyclic.app
+
 const Home = () => {
   const [tasks, setTasks] = useState([]);
-
+  const data=JSON.parse(localStorage.getItem("loggedInUser"))
+  console.log(data,"data")
   const getData = async () => {
     const res = await axios.get(`https://muddy-cyan-sneakers.cyclic.app/tasks`);
     const data = await res.data;
     setTasks(data);
   };
+
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <Box className="container">
       <Box className="container-nav">
-        <Form getData={getData}  tasks={tasks} />
-      </Box> 
+        <Form getData={getData} tasks={tasks} />
+      </Box>
       <Box className="container-main">
         <Box className="container-left">
           <Box className="card-box">
@@ -43,56 +45,54 @@ const Home = () => {
               <Heading>User</Heading>
             </Badge>
 
-            {tasks?.map((item) => (
-              <Card key={item._id}>
+           
+              <Card key={data._id}>
                 <CardBody>
                   <Tag size="lg" colorScheme="red" borderRadius="full">
                     <Avatar
-                      src={item.assignedBy.image}
+                      src={data.image}
                       size="xs"
-                      name={item.assignedBy.username}
+                      name={data.username}
                       ml={-1}
                       mr={2}
                     />
-                    <TagLabel>{item.assignedBy.username}</TagLabel>
+                    <TagLabel>{data.username}</TagLabel>
                   </Tag>
                 </CardBody>
               </Card>
-            ))}
+          
           </Box>
         </Box>
         <Box className="container-mid">
           <Box className="card-box">
-              <SimpleGrid
-                spacing={4}
-                templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-              >
-            {tasks?.map((item) => (
-                <Card>
+            <SimpleGrid
+              spacing={4}
+              templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+            >
+              {tasks?.map((item) => (
+                <Card key={item._id}>
                   <CardHeader>
                     <Heading size="md">{item.sprintName}</Heading>
                   </CardHeader>
                   <CardBody>
-                  <Heading size="sm">{item.category}</Heading>
+                    <Heading size="sm">{item.category}</Heading>
 
-                    <Text>
-                      {item.taskDescription}
-                    </Text>
+                    <Text>{item.taskDescription}</Text>
                   </CardBody>
                   <CardFooter>
-                  <Tag size="lg" colorScheme="red" borderRadius="full">
-                    <Avatar
-                      src={item.assigne.image}
-                      size="xs"
-                      name={item.assigne.username}
-                      ml={-1}
-                      mr={2}
-                    />
-                    <TagLabel>{item.assigne.username}</TagLabel>
-                  </Tag>
+                    <Tag size="lg" colorScheme="red" borderRadius="full">
+                      <Avatar
+                        src={item.assigne.image}
+                        size="xs"
+                        name={item.assigne.username}
+                        ml={-1}
+                        mr={2}
+                      />
+                      <TagLabel>{item.assigne.username}</TagLabel>
+                    </Tag>
                   </CardFooter>
                 </Card>
-            ))}
+              ))}
             </SimpleGrid>
           </Box>
         </Box>

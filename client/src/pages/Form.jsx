@@ -21,7 +21,7 @@ const initialFormValue = {
   assigne: "",
   taskDescription: "",
 };
-const Form = ({ tasks,getData }) => {
+const Form = ({ tasks, getData }) => {
   const [formValue, setFormValue] = useState(initialFormValue);
   const [users, setUsers] = useState([]);
 
@@ -45,15 +45,18 @@ const Form = ({ tasks,getData }) => {
   const handleOnClickSubmitPostForm = async (e) => {
     e.preventDefault();
     const payload = {
-      sprintName: formValue.sprintName,
+      sprintName: `Sprint ${formValue.sprintName}`,
       category: formValue.category,
       assignedBy: formValue.assignedBy,
       assigne: formValue.assigne,
       taskDescription: formValue.taskDescription,
     };
-    await axios.post("https://muddy-cyan-sneakers.cyclic.app/tasks/create", payload);
+    await axios.post(
+      "https://muddy-cyan-sneakers.cyclic.app/tasks/create",
+      payload
+    );
     onClose();
-    getData()
+    getData();
   };
 
   return (
@@ -75,6 +78,7 @@ const Form = ({ tasks,getData }) => {
               onChange={handleOnInputChange}
               name="sprintName"
               value={formValue.sprintName}
+              type="number"
             />
             <FormLabel>Category</FormLabel>
             <Select
@@ -101,7 +105,7 @@ const Form = ({ tasks,getData }) => {
               placeholder="assigned by"
             >
               {tasks?.map((item) => (
-                <option value={item.assignedBy._id}>
+                <option key={item._id} value={item.assignedBy._id}>
                   {item.assignedBy.username}
                 </option>
               ))}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/UsersContext";
 const LoginForm = () => {
   const [signupFormValue, setSignupFormValue] = useState({
     username: "",
@@ -29,6 +30,8 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
+  const { loginUsersData } = useContext(AppContext);
+
   const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -66,16 +69,20 @@ const LoginForm = () => {
       email: loginFormValue.email,
       password: loginFormValue.password,
     };
-    await axios.post(
-      "https://muddy-cyan-sneakers.cyclic.app/users/login",
-      payload
-    );
+    await axios
+      .post("https://muddy-cyan-sneakers.cyclic.app/users/login", payload)
+      .then((res) => {
+        const data = res.data;
+        if (data.login) {
+          localStorage.setItem("loggedInUser", JSON.stringify(data.userData));
+          navigate("/home");
+        }
+      });
     setLoginFormValue({
       email: "",
       password: "",
     });
     onClose();
-    navigate("/home");
   };
 
   return (
