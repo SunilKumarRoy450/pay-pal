@@ -25,6 +25,8 @@ const Form = ({ tasks, getData }) => {
   const [formValue, setFormValue] = useState(initialFormValue);
   const [users, setUsers] = useState([]);
 
+  const data=JSON.parse(localStorage.getItem("loggedInUser"))
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -104,11 +106,11 @@ const Form = ({ tasks, getData }) => {
               onChange={handleOnInputChange}
               placeholder="assigned by"
             >
-              {tasks?.map((item) => (
-                <option key={item._id} value={item.assignedBy._id}>
-                  {item.assignedBy.username}
+              {/* {tasks?.map((item) => ( */}
+                <option key={data._id} value={data._id}>
+                  {data.username}
                 </option>
-              ))}
+              {/* ))} */}
             </Select>
             <FormLabel>Assigne</FormLabel>
             <Select

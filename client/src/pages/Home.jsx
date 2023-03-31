@@ -22,7 +22,6 @@ import Form from "./Form";
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const data=JSON.parse(localStorage.getItem("loggedInUser"))
-  console.log(data,"data")
   const getData = async () => {
     const res = await axios.get(`https://muddy-cyan-sneakers.cyclic.app/tasks`);
     const data = await res.data;
